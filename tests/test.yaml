@@ -1,0 +1,165 @@
+# This is a test YAML file for nlohmann/yaml.hpp parser
+
+# Top-level mapping
+root:
+  # Scalar values
+  string_unquoted: hello world
+  string_quoted_single: 'single quoted string'
+  string_quoted_double: "double quoted string"
+  integer: 42
+  float: 3.14
+  boolean_true: true
+  boolean_false: false
+  boolean_True: True
+  boolean_False: False
+  null_null: null
+  null_tilde: ~
+
+  # Empty lines are skipped
+
+
+  # Nested mapping
+  nested_map:
+    key1: value1
+    key2: value2
+    deeper_map:
+      subkey: subvalue
+
+  # Sequence (list)
+  simple_list:
+    - item1
+    - item2
+    - 3
+    - true
+    - null
+
+  # Nested sequence
+  nested_list:
+    - - subitem1
+      - subitem2
+    - - 4
+      - 5.5
+
+  # Map with a list
+  map_with_list:
+    list_key:
+      - list_item1
+      - list_item2
+
+  # List with maps
+  list_with_maps:
+    - map1:
+        a: 1
+        b: 2
+    - map2:
+        c: 3
+        d: 4
+
+  # Complex nested structure
+  complex:
+    map:
+      list:
+        - scalar: value
+          sublist:
+            - 1
+            - 2
+        - another: map
+          with: values
+
+# Sequence at top level (but parser starts with parse_value(0), which can be sequence or mapping)
+top_level_list:
+  - top_item1
+  - top_item2
+
+# Note: The parser might expect a single root, but it can handle mapping or sequence at root.
+# Also, test invalid cases separately, but this is for valid features.
+
+# Trailing comment after value: value # comment
+trailing_comment_key: value # this should be trimmed
+
+# Indentation with tabs (but code handles spaces and tabs equally)
+tab_indent:
+  key: value	# tab before a key
+
+# JSON Compatibility Tests
+json_compatibility:
+  # JSON-style arrays
+  json_array: [1, 2, 3, "four", true, null]
+  json_nested_array: [[1, 2], [3, 4], ["a", "b"]]
+
+  # JSON-style objects
+  json_object: {"key1": "value1", "key2": 42, "key3": true}
+  json_nested_object: {"outer": {"inner": "value", "number": 123}}
+
+  # Mixed JSON and YAML styles
+  mixed_structure:
+    json_in_yaml: {"a": 1, "b": [2, 3, 4]}
+    yaml_in_json:
+      - name: "test"
+        values: [1, 2, 3]
+
+  # JSON boolean and null values
+  json_booleans:
+    true_value: true
+    false_value: false
+    null_value: null
+
+  # Empty structures
+  empty_array: []
+  empty_object: {}
+
+  # Edge cases for JSON compatibility
+  edge_cases:
+    unicode_string: "Hello 世界! 🌍"
+    escaped_quotes: "She said \"Hello\""
+    special_chars: "Tab:\t Newline:\n Backslash:\\"
+    numbers:
+      integer: 42
+      negative: -17
+      float: 3.14159
+      scientific: 1.23e-4
+      zero: 0
+
+  # Complex nested JSON-like structure
+  complex_json:
+    users:
+      - id: 1
+        name: "John Doe"
+        active: true
+        roles: ["admin", "user"]
+        metadata: {"created": "2023-01-01", "updated": null}
+      - id: 2
+        name: "Jane Smith"
+        active: false
+        roles: ["user"]
+        metadata: {"created": "2023-02-01", "updated": "2023-12-01"}
+
+# Additional YAML edge cases
+yaml_edge_cases:
+  # Different quote styles
+  single_quotes: 'single quoted value'
+  double_quotes: "double quoted value"
+  no_quotes: unquoted value
+
+  # Multiline strings (folded and literal - simplified for this parser)
+  multiline_folded: "This is a long line that would normally be folded in YAML"
+  multiline_literal: "Line 1\nLine 2\nLine 3"
+
+  # Numbers in different formats
+  numbers_test:
+    octal: 0o777
+    hexadecimal: 0xFF
+    binary: 0b1010
+
+  # Special float values
+  special_floats:
+    infinity: .inf
+    negative_infinity: -.inf
+    not_a_number: .nan
+
+# Document-level array test (alternative root)
+# Note: This would be tested separately as YAML can have a sequence at root
+# - root_item_1
+# - root_item_2
+# - nested:
+#     key: value
